@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import Link from 'next/link'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
   FlaskConical, Cpu, Globe, Code2, Smartphone, GitBranch,
@@ -329,15 +330,13 @@ function CourseModal({ course, onClose }: { course: Course; onClose: () => void 
           >
             Register for Demo
           </motion.a>
-          <motion.a
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); onClose(); setTimeout(() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }), 100) }}
-            whileHover={{ scale: 1.03 }}
-            whileTap={{ scale: 0.97 }}
+          <Link
+            href="/contact"
+            onClick={onClose}
             className="flex-1 py-3 rounded-xl font-semibold border border-primary/40 text-primary text-sm text-center hover:bg-primary/10 transition-all"
           >
             Enquire Now
-          </motion.a>
+          </Link>
         </div>
       </motion.div>
     </motion.div>
@@ -654,13 +653,12 @@ export default function Services() {
                   {service.title}
                 </h3>
                 <p className="text-xs text-muted-foreground leading-relaxed flex-1">{service.desc}</p>
-                <a
-                  href="#contact"
-                  onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
+                <Link
+                  href="/contact"
                   className="text-primary text-xs font-medium hover:underline"
                 >
                   Enquire →
-                </a>
+                </Link>
               </motion.div>
             ))}
           </div>

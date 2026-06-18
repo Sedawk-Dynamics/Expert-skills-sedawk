@@ -198,13 +198,13 @@ export default function Navbar() {
             </Link>
 
             {/* Contact */}
-            <button
-              onClick={() => handleNav('#contact')}
+            <Link
+              href="/contact"
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
               Contact
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
-            </button>
+            </Link>
           </nav>
 
           {/* CTA Buttons */}
@@ -217,14 +217,14 @@ export default function Navbar() {
                 Need Demo
               </Link>
             </motion.div>
-            <motion.button
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={() => handleNav('#contact')}
-              className="px-5 py-2 rounded-full text-sm font-semibold brand-gradient text-background glow-green transition-all duration-200"
-            >
-              Get Started
-            </motion.button>
+            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
+              <Link
+                href="/contact"
+                className="inline-block px-5 py-2 rounded-full text-sm font-semibold brand-gradient text-background glow-green transition-all duration-200"
+              >
+                Get Started
+              </Link>
+            </motion.div>
           </div>
 
           {/* Mobile menu toggle */}
@@ -290,26 +290,21 @@ export default function Navbar() {
                 </Link>
               </motion.div>
 
-              {[
-                { label: 'Why Us', action: () => handleNav('#why-us') },
-                { label: 'Contact', action: () => handleNav('#contact') },
-              ].map((item, i) => (
-                <motion.button
-                  key={item.label}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.24 + i * 0.06 }}
-                  onClick={item.action}
-                  className="text-xl font-semibold text-foreground hover:text-primary transition-colors text-left py-2 border-b border-border/40"
-                >
-                  {item.label}
-                </motion.button>
-              ))}
+              <motion.button
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.24 }}
+                onClick={() => handleNav('#why-us')}
+                className="text-xl font-semibold text-foreground hover:text-primary transition-colors text-left py-2 border-b border-border/40"
+              >
+                Why Us
+              </motion.button>
 
               {/* Extra pages */}
               {[
                 { label: 'Events & Gallery', href: '/events' },
                 { label: 'Careers', href: '/careers' },
+                { label: 'Contact', href: '/contact' },
               ].map((item, i) => (
                 <motion.div
                   key={item.label}
@@ -341,12 +336,13 @@ export default function Navbar() {
                 >
                   Need Demo
                 </Link>
-                <button
-                  onClick={() => handleNav('#contact')}
+                <Link
+                  href="/contact"
+                  onClick={() => setMenuOpen(false)}
                   className="px-6 py-3 rounded-full text-base font-semibold brand-gradient text-background text-center"
                 >
                   Get Started
-                </button>
+                </Link>
               </motion.div>
             </nav>
           </motion.div>

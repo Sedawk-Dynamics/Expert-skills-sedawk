@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
 
@@ -166,15 +167,14 @@ export default function Hero() {
           >
             Explore Programs <ArrowRight size={16} />
           </motion.a>
-          <motion.a
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.97 }}
-            href="#contact"
-            onClick={(e) => { e.preventDefault(); document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' }) }}
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-foreground border border-primary/40 hover:border-primary hover:bg-primary/10 transition-all duration-200 text-sm md:text-base"
-          >
-            Contact Us
-          </motion.a>
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.97 }}>
+            <Link
+              href="/contact"
+              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-semibold text-foreground border border-primary/40 hover:border-primary hover:bg-primary/10 transition-all duration-200 text-sm md:text-base"
+            >
+              Contact Us
+            </Link>
+          </motion.div>
         </motion.div>
 
         {/* Stats */}
