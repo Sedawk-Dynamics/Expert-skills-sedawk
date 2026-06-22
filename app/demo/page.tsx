@@ -19,6 +19,7 @@ const courses = [
   'DevOps',
   'DSA',
   'IT Consulting / Services',
+  'Others',
 ]
 
 const fadeUp = {
@@ -33,6 +34,7 @@ export default function DemoPage() {
     phone: '',
     company: '',
     course: '',
+    otherCourse: '',
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
@@ -59,18 +61,11 @@ export default function DemoPage() {
       <div className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
-            <Image
-              src="/logo.png"
-              alt="XpertsEdge Technologies"
-              width={36}
-              height={36}
-              className="w-8 h-8 object-contain group-hover:scale-110 transition-transform"
-            />
+            <Image src="/logo.png" alt="XpertsEdge Technologies" width={36} height={36} className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
             <div className="leading-tight">
               <span className="font-bold text-sm">
-                <span className="brand-gradient-text">Xperts</span>
-                <span className="text-foreground">Edge</span>
-                <span className="text-foreground"> Technologies</span>
+                <span className="text-foreground">Xperts</span>
+                <span className="text-primary">Edge</span>
               </span>
             </div>
           </Link>
@@ -242,6 +237,22 @@ export default function DemoPage() {
                     ))}
                   </select>
                 </div>
+
+                {/* Shown only when "Others" is selected */}
+                {form.course === 'Others' && (
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="otherCourse" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                      Please Specify <span className="text-primary">*</span>
+                    </label>
+                    <input
+                      id="otherCourse" name="otherCourse" type="text" required
+                      value={form.otherCourse} onChange={handleChange}
+                      placeholder="Which course / service are you looking for?"
+                      autoFocus
+                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+                    />
+                  </div>
+                )}
 
                 <div className="flex flex-col gap-1.5">
                   <label htmlFor="message" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">

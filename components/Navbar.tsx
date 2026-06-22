@@ -73,13 +73,9 @@ export default function Navbar() {
               className="w-9 h-9 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform duration-200"
             />
             <div className="flex flex-col leading-tight">
-              <span className="font-bold text-sm md:text-base text-foreground">
-                <span className="brand-gradient-text">Xperts</span>
-                <span className="text-foreground">Edge</span>
-                <span className="text-foreground"> Technologies</span>
-              </span>
-              <span className="text-[10px] text-muted-foreground hidden sm:block">
-                Building Innovation Beyond Boundaries
+              <span className="font-bold text-sm md:text-base">
+                <span className="text-foreground">Xperts</span>
+                <span className="text-primary">Edge</span>
               </span>
             </div>
           </button>
@@ -197,6 +193,15 @@ export default function Navbar() {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
             </Link>
 
+            {/* Certifications */}
+            <Link
+              href="/certifications"
+              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
+            >
+              Certifications
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+            </Link>
+
             {/* Contact */}
             <Link
               href="/contact"
@@ -304,6 +309,7 @@ export default function Navbar() {
               {[
                 { label: 'Events & Gallery', href: '/events' },
                 { label: 'Careers', href: '/careers' },
+                { label: 'Certifications', href: '/certifications' },
                 { label: 'Contact', href: '/contact' },
               ].map((item, i) => (
                 <motion.div

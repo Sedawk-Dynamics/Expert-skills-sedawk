@@ -376,9 +376,6 @@ function CategoryCard({
         <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${meta.gradient} flex items-center justify-center text-white shadow-lg`}>
           {meta.icon}
         </div>
-        <span className="text-[11px] font-medium px-2.5 py-1 rounded-full bg-muted border border-border text-muted-foreground">
-          {count} {count === 1 ? 'course' : 'courses'}
-        </span>
       </div>
 
       <div>
@@ -597,10 +594,7 @@ export default function Services() {
                     <ArrowLeft size={16} /> All Categories
                   </button>
                   <h3 className="text-lg font-semibold text-foreground">
-                    <span className="brand-gradient-text">{activeCategory}</span>{' '}
-                    <span className="text-muted-foreground font-normal text-sm">
-                      ({activeCourses.length} {activeCourses.length === 1 ? 'course' : 'courses'})
-                    </span>
+                    <span className="brand-gradient-text">{activeCategory}</span>
                   </h3>
                 </div>
 

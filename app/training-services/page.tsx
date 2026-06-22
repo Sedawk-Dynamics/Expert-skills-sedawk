@@ -47,8 +47,8 @@ const trainingCards = [
     gradient: 'from-amber-500 via-yellow-500 to-lime-500',
     desc: 'Industry-recognized certification tracks and exam preparation guidance across technologies.',
     items: ['AWS Certified', 'Azure Admin', 'ISTQB', 'Scrum / Agile'],
-    href: '/demo',
-    cta: 'Enquire Now',
+    href: '/certifications',
+    cta: 'Explore Courses',
   },
 ]
 
@@ -62,9 +62,8 @@ export default function TrainingServicesPage() {
             <Image src="/logo.png" alt="XpertsEdge Technologies" width={36} height={36} className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
             <div className="leading-tight">
               <span className="font-bold text-sm">
-                <span className="brand-gradient-text">Xperts</span>
-                <span className="text-foreground">Edge</span>
-                <span className="text-foreground"> Technologies</span>
+                <span className="text-foreground">Xperts</span>
+                <span className="text-primary">Edge</span>
               </span>
             </div>
           </Link>

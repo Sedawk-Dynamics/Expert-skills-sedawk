@@ -25,13 +25,13 @@ const contactInfo = [
   {
     icon: <MapPin size={18} />,
     label: 'Address',
-    value: 'No. 2110A, 13th Main Road, Anna Nagar, Chennai - 600040',
-    href: 'https://maps.google.com/?q=Anna+Nagar,+Chennai',
+    value: 'No. 2110A, 13th Main Road, Anna Nagar, Chennai - 600 040',
+    href: 'https://www.google.com/maps?q=13.0838892,80.2003852&z=17&hl=en',
   },
   {
     icon: <Clock size={18} />,
     label: 'Working Hours',
-    value: 'Mon – Sat: 9:30 AM – 7:30 PM',
+    value: 'Mon – Sat: 9:30 AM – 7:30 PM\nSunday Timings: 10:00 AM – 4:00 PM',
     href: null,
   },
 ]
@@ -43,18 +43,32 @@ export default function Contact() {
   const [formState, setFormState] = useState({ name: '', email: '', phone: '', message: '' })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    setTimeout(() => {
-      setSubmitting(false)
+    setError(null)
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formState),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok || !data.ok) {
+        throw new Error(data.error || 'Something went wrong. Please try again.')
+      }
       setSubmitted(true)
-    }, 1200)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -132,7 +146,7 @@ export default function Contact() {
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-foreground font-medium text-sm">{item.value}</p>
+                    <p className="text-foreground font-medium text-sm whitespace-pre-line">{item.value}</p>
                   )}
                 </div>
               </motion.div>
@@ -147,7 +161,7 @@ export default function Contact() {
             >
               <iframe
                 title="XpertsEdge Technologies location"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.0!2d80.2095!3d13.0854!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a526f5b9f87b0a7%3A0x1!2sAnna+Nagar%2C+Chennai%2C+Tamil+Nadu+600040!5e0!3m2!1sen!2sin!4v1700000000000"
+                src="https://www.google.com/maps?q=13.0838892,80.2003852&z=17&hl=en&output=embed"
                 width="100%"
                 height="100%"
                 style={{ border: 0, filter: 'invert(0.9) hue-rotate(140deg) brightness(0.7)' }}
@@ -244,6 +258,10 @@ export default function Contact() {
                     className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-200 resize-none"
                   />
                 </div>
+
+                {error && (
+                  <p className="text-sm text-destructive" role="alert">{error}</p>
+                )}
 
                 <motion.button
                   type="submit"

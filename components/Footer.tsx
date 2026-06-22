@@ -75,14 +75,16 @@ export default function Footer() {
 
       {/* Main footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
             <button onClick={() => scrollTo('#home')} className="flex items-center gap-3 mb-4 group" aria-label="Go to top">
               <Image src="/logo.png" alt="XpertsEdge Technologies" width={36} height={36} className="w-9 h-9 object-contain group-hover:scale-110 transition-transform" />
-              <div className="leading-tight">
-                <p className="font-bold text-base"><span className="brand-gradient-text">Xperts</span><span className="text-foreground">Edge</span></p>
-                <p className="text-[10px] text-muted-foreground">Technologies</p>
+              <div className="flex flex-col leading-tight">
+                <span className="font-bold text-base">
+                  <span className="text-foreground">Xperts</span>
+                  <span className="text-primary">Edge</span>
+                </span>
               </div>
             </button>
             <p className="text-sm text-muted-foreground leading-relaxed mb-5">
@@ -98,7 +100,7 @@ export default function Footer() {
               </a>
               <span className="flex items-start gap-2 text-xs text-muted-foreground">
                 <MapPin size={13} className="mt-0.5 flex-shrink-0" />
-                No. 2110A, 13th Main Road,<br />Anna Nagar, Chennai - 600040
+                No. 2110A, 13th Main Road,<br />Anna Nagar, Chennai - 600 040
               </span>
             </div>
           </div>
@@ -131,25 +133,6 @@ export default function Footer() {
             </div>
           ))}
 
-          {/* Contact emails */}
-          <div>
-            <h4 className="text-xs font-semibold text-foreground uppercase tracking-widest mb-4">Contact Emails</h4>
-            <ul className="flex flex-col gap-2.5">
-              {[
-                { label: 'General Enquiry', email: 'info@xpertsedgetech.com' },
-                { label: 'Admin', email: 'admin@xpertsedgetech.com' },
-                { label: 'HR', email: 'hr@xpertsedgetech.com' },
-                { label: 'Prakash V', email: 'prakash@xpertsedgetech.com' },
-              ].map((item) => (
-                <li key={item.email}>
-                  <p className="text-[11px] text-muted-foreground/60 mb-0.5">{item.label}</p>
-                  <a href={`mailto:${item.email}`} className="text-xs text-muted-foreground hover:text-primary transition-colors duration-200 break-all">
-                    {item.email}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
         </div>
       </div>
 
