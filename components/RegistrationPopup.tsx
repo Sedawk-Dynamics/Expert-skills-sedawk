@@ -29,7 +29,7 @@ export default function RegistrationPopup() {
   useEffect(() => {
     if (typeof window === 'undefined') return
     if (sessionStorage.getItem('reg_popup_seen')) return
-    const t = setTimeout(() => setOpen(true), 1500)
+    const t = setTimeout(() => setOpen(true), 11500)
     return () => clearTimeout(t)
   }, [])
 
@@ -120,7 +120,7 @@ export default function RegistrationPopup() {
                   </button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4" noValidate>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <input
                     name="name" type="text" required
                     value={form.name} onChange={handleChange}

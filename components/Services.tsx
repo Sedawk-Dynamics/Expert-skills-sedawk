@@ -330,13 +330,14 @@ function CourseModal({ course, onClose }: { course: Course; onClose: () => void 
           >
             Register for Demo
           </motion.a>
-          <Link
-            href="/contact"
-            onClick={onClose}
+          <a
+            href={`/curriculum/${course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}.pdf`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="flex-1 py-3 rounded-xl font-semibold border border-primary/40 text-primary text-sm text-center hover:bg-primary/10 transition-all"
           >
-            Enquire Now
-          </Link>
+            View Curriculum
+          </a>
         </div>
       </motion.div>
     </motion.div>
@@ -367,7 +368,7 @@ function CategoryCard({
       animate={inView ? 'visible' : 'hidden'}
       transition={{ duration: 0.5, delay: 0.05 + index * 0.08 }}
       whileHover={{ y: -6 }}
-      className="group relative surface-card rounded-2xl p-6 pt-7 flex flex-col gap-4 overflow-hidden hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+      className="group relative surface-card rounded-2xl p-6 pt-7 flex flex-col gap-4 overflow-hidden hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-150"
     >
       {/* Colored top bar */}
       <span className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${meta.gradient}`} aria-hidden="true" />
@@ -427,7 +428,7 @@ function CourseCard({
       tabIndex={0}
       onClick={onOpen}
       onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onOpen() } }}
-      className="group relative surface-card rounded-2xl p-6 pt-7 flex flex-col gap-4 overflow-hidden cursor-pointer hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+      className="group relative surface-card rounded-2xl p-6 pt-7 flex flex-col gap-4 overflow-hidden cursor-pointer hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-150"
     >
       <span className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${grad}`} aria-hidden="true" />
 
@@ -638,7 +639,7 @@ export default function Services() {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
                 whileHover={{ y: -4, scale: 1.02 }}
-                className="group surface-card rounded-2xl p-5 flex flex-col gap-3 hover:border-primary/30 transition-all duration-300"
+                className="group surface-card rounded-2xl p-5 flex flex-col gap-3 hover:border-primary/30 transition-all duration-150"
               >
                 <div className="w-10 h-10 rounded-xl brand-gradient flex items-center justify-center text-background">
                   {service.icon}

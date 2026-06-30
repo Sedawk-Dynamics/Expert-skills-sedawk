@@ -52,7 +52,7 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-150 ${
           scrolled
             ? 'bg-background/90 backdrop-blur-md border-b border-border shadow-lg shadow-black/40'
             : 'bg-transparent'
@@ -68,15 +68,16 @@ export default function Navbar() {
             <Image
               src="/logo.png"
               alt="XpertsEdge Technologies Logo"
-              width={40}
-              height={40}
-              className="w-9 h-9 md:w-10 md:h-10 object-contain group-hover:scale-110 transition-transform duration-200"
+              width={56}
+              height={56}
+              className="w-12 h-12 md:w-14 md:h-14 object-contain group-hover:scale-110 transition-transform duration-200"
             />
             <div className="flex flex-col leading-tight">
-              <span className="font-bold text-sm md:text-base">
+              <span className="font-bold text-base md:text-lg">
                 <span className="text-foreground">Xperts</span>
                 <span className="text-primary">Edge</span>
               </span>
+              <span className="text-[10px] md:text-xs text-muted-foreground tracking-wide">Technologies</span>
             </div>
           </button>
 
@@ -88,7 +89,7 @@ export default function Navbar() {
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
               Home
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
             </button>
 
             {/* About */}
@@ -96,8 +97,8 @@ export default function Navbar() {
               onClick={() => handleNav('#about')}
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
-              About
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+              About Us
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
             </button>
 
             {/* Services dropdown — exactly two options */}
@@ -117,7 +118,7 @@ export default function Navbar() {
                   size={14}
                   className={`transition-transform duration-200 ${servicesOpen ? 'rotate-180' : ''}`}
                 />
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
               </button>
 
               <AnimatePresence>
@@ -132,9 +133,10 @@ export default function Navbar() {
                     onMouseLeave={onServicesLeave}
                   >
                     <div className="surface-card rounded-2xl p-2 min-w-[240px] border border-primary/20 shadow-xl shadow-black/50 flex flex-col gap-1">
-                      {/* IT Services — button only */}
-                      <button
-                        onClick={() => handleNav('#services')}
+                      {/* IT Services — its own page */}
+                      <Link
+                        href="/it-services"
+                        onClick={() => setServicesOpen(false)}
                         className="flex items-center gap-3 w-full text-left px-3 py-2.5 rounded-xl hover:bg-primary/5 transition-colors group/item"
                       >
                         <span className="w-8 h-8 rounded-lg brand-gradient flex items-center justify-center text-background flex-shrink-0">
@@ -144,7 +146,7 @@ export default function Navbar() {
                           <span className="block text-sm font-semibold text-foreground group-hover/item:text-primary transition-colors">IT Services</span>
                           <span className="block text-[11px] text-muted-foreground">Consulting & corporate solutions</span>
                         </span>
-                      </button>
+                      </Link>
 
                       {/* Training Services — navigates to its own page */}
                       <Link
@@ -172,7 +174,7 @@ export default function Navbar() {
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
               Why Us
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
             </button>
 
             {/* Events & Galleries */}
@@ -181,7 +183,7 @@ export default function Navbar() {
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
               Events &amp; Gallery
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
             </Link>
 
             {/* Careers */}
@@ -190,7 +192,7 @@ export default function Navbar() {
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
               Careers
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
             </Link>
 
             {/* Certifications */}
@@ -199,7 +201,7 @@ export default function Navbar() {
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
               Certifications
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
             </Link>
 
             {/* Contact */}
@@ -208,26 +210,18 @@ export default function Navbar() {
               className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors duration-200 relative group"
             >
               Contact
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300 rounded-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-150 rounded-full" />
             </Link>
           </nav>
 
-          {/* CTA Buttons */}
+          {/* CTA Button */}
           <div className="hidden lg:flex items-center gap-2">
             <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
               <Link
                 href="/demo"
-                className="px-4 py-2 rounded-full text-sm font-semibold border border-primary/40 text-primary hover:bg-primary/10 transition-all duration-200"
-              >
-                Need Demo
-              </Link>
-            </motion.div>
-            <motion.div whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                href="/contact"
                 className="inline-block px-5 py-2 rounded-full text-sm font-semibold brand-gradient text-background glow-green transition-all duration-200"
               >
-                Get Started
+                Need Demo
               </Link>
             </motion.div>
           </div>
@@ -256,7 +250,7 @@ export default function Navbar() {
             <nav className="flex flex-col gap-4 mt-6" aria-label="Mobile navigation">
               {[
                 { label: 'Home', action: () => handleNav('#home') },
-                { label: 'About', action: () => handleNav('#about') },
+                { label: 'About Us', action: () => handleNav('#about') },
               ].map((item, i) => (
                 <motion.button
                   key={item.label}
@@ -271,15 +265,20 @@ export default function Navbar() {
               ))}
 
               {/* Services — two options */}
-              <motion.button
+              <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.12 }}
-                onClick={() => handleNav('#services')}
-                className="flex items-center gap-3 text-xl font-semibold text-foreground hover:text-primary transition-colors text-left py-2 border-b border-border/40"
+                className="border-b border-border/40"
               >
-                <Wrench size={18} className="text-primary" /> IT Services
-              </motion.button>
+                <Link
+                  href="/it-services"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center gap-3 text-xl font-semibold text-foreground hover:text-primary transition-colors py-2"
+                >
+                  <Wrench size={18} className="text-primary" /> IT Services
+                </Link>
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -338,16 +337,9 @@ export default function Navbar() {
                 <Link
                   href="/demo"
                   onClick={() => setMenuOpen(false)}
-                  className="px-6 py-3 rounded-full text-base font-semibold border border-primary/40 text-primary text-center hover:bg-primary/10 transition-all"
-                >
-                  Need Demo
-                </Link>
-                <Link
-                  href="/contact"
-                  onClick={() => setMenuOpen(false)}
                   className="px-6 py-3 rounded-full text-base font-semibold brand-gradient text-background text-center"
                 >
-                  Get Started
+                  Need Demo
                 </Link>
               </motion.div>
             </nav>

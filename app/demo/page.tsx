@@ -69,12 +69,20 @@ export default function DemoPage() {
               </span>
             </div>
           </Link>
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-          >
-            <ArrowLeft size={16} /> Back to Home
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link
+              href="/#courses"
+              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              <ArrowLeft size={16} /> Back to Courses
+            </Link>
+            <Link
+              href="/"
+              className="hidden sm:block text-sm text-muted-foreground hover:text-primary transition-colors"
+            >
+              Home
+            </Link>
+          </div>
         </div>
       </div>
 
@@ -149,15 +157,23 @@ export default function DemoPage() {
                   Thank you for registering. Our team will reach out to you within 24 hours to
                   schedule your free demo session.
                 </p>
-                <Link
-                  href="/"
-                  className="mt-2 px-6 py-3 rounded-full font-semibold brand-gradient text-background text-sm glow-green"
-                >
-                  Back to Home
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-3 mt-2">
+                  <Link
+                    href="/#courses"
+                    className="px-6 py-3 rounded-full font-semibold brand-gradient text-background text-sm glow-green text-center"
+                  >
+                    Back to Courses
+                  </Link>
+                  <Link
+                    href="/"
+                    className="px-6 py-3 rounded-full font-semibold border border-primary/40 text-primary text-sm text-center hover:bg-primary/10 transition-all"
+                  >
+                    Back to Home
+                  </Link>
+                </div>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <h2 className="text-xl font-bold text-foreground mb-1">Your Details</h2>
 
                 <div className="grid sm:grid-cols-2 gap-4">

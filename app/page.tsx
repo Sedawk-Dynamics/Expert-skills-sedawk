@@ -8,7 +8,6 @@ import WhyChooseUs from '@/components/WhyChooseUs'
 import Reviews from '@/components/Reviews'
 import Certifications from '@/components/Certifications'
 import Footer from '@/components/Footer'
-import WhatsAppButton from '@/components/WhatsAppButton'
 import RegistrationPopup from '@/components/RegistrationPopup'
 
 export default function Page() {
@@ -25,7 +24,6 @@ export default function Page() {
       <Reviews />
       <Certifications />
       <Footer />
-      <WhatsAppButton />
     </main>
   )
 }

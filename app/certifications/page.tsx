@@ -509,7 +509,7 @@ export default function CertificationsPage() {
                     transition={{ duration: 0.4, delay: i * 0.06 }}
                     whileHover={{ y: -6 }}
                     onClick={() => setSelected(cat)}
-                    className="group relative surface-card rounded-2xl p-7 text-left overflow-hidden hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+                    className="group relative surface-card rounded-2xl p-7 text-left overflow-hidden hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5 transition-all duration-150"
                   >
                     <span className={`absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r ${cat.gradient}`} aria-hidden="true" />
 
@@ -527,10 +527,7 @@ export default function CertificationsPage() {
                     </h3>
                     <p className="text-sm text-muted-foreground leading-relaxed mb-6">{cat.description}</p>
 
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold px-3 py-1.5 rounded-full bg-muted text-muted-foreground">
-                        {cat.certifications.length} Certifications
-                      </span>
+                    <div className="flex items-center justify-end">
                       <span className="flex items-center gap-1 text-sm font-bold text-primary">
                         View Cards <ArrowRight size={15} />
                       </span>

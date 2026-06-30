@@ -4,7 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
 import {
-  ArrowLeft, ArrowRight, Code2, FlaskConical, BookOpen, Award, PlayCircle,
+  ArrowLeft, ArrowRight, Users, Lightbulb, Award, Briefcase, PlayCircle,
 } from 'lucide-react'
 
 const fadeUp = {
@@ -12,47 +12,38 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 }
 
-// ─── Training service categories ─────────────────────────────────────────────
-const trainingCards = [
+const itCards = [
   {
-    title: 'Web Development',
-    icon: <Code2 size={24} />,
+    title: 'Corporate Training Programs',
+    icon: <Users size={24} />,
     gradient: 'from-emerald-500 via-green-500 to-teal-500',
-    desc: 'Frontend to full stack tracks — Java Full Stack, MEAN, MERN, and Next.js with job-ready projects.',
-    items: ['Java Full Stack', 'MEAN Stack', 'MERN Stack', 'Next.js'],
-    href: '/#courses',
-    cta: 'Explore Courses',
+    desc: 'Customized training solutions designed for teams, organizations, and professional upskilling needs.',
+    items: ['Team Upskilling', 'Custom Curriculum', 'Onsite / Online', 'Skill Assessment'],
   },
   {
-    title: 'Testing',
-    icon: <FlaskConical size={24} />,
+    title: 'Technology Consulting',
+    icon: <Lightbulb size={24} />,
     gradient: 'from-blue-500 via-indigo-500 to-violet-500',
-    desc: 'Manual and automation testing paths for freshers and experienced career switchers.',
-    items: ['Manual Testing', 'Selenium', 'Playwright', 'API Testing'],
-    href: '/#courses',
-    cta: 'Explore Courses',
+    desc: 'Guidance and structured learning programs to help individuals and businesses stay future-ready.',
+    items: ['IT Strategy', 'Process Guidance', 'Tech Roadmaps', 'Future-Ready Planning'],
   },
   {
-    title: 'Other Courses',
-    icon: <BookOpen size={24} />,
-    gradient: 'from-fuchsia-500 via-pink-500 to-orange-500',
-    desc: 'Cloud, DevOps, and foundational programs like DSA for modern top IT skill requirements.',
-    items: ['AWS Track', 'Microsoft Azure', 'DevOps', 'DSA'],
-    href: '/#courses',
-    cta: 'Explore Courses',
-  },
-  {
-    title: 'Certification',
+    title: 'Placement Readiness',
     icon: <Award size={24} />,
-    gradient: 'from-amber-500 via-yellow-500 to-lime-500',
-    desc: 'Industry-recognized certification tracks and exam preparation guidance across technologies.',
-    items: ['AWS Certified', 'Azure Admin', 'ISTQB', 'Scrum / Agile'],
-    href: '/certifications',
-    cta: 'Explore Courses',
+    gradient: 'from-fuchsia-500 via-pink-500 to-orange-500',
+    desc: 'Support for resume preparation, technical mentoring, and building interview confidence.',
+    items: ['Resume Building', 'Mock Interviews', 'Technical Mentoring', 'Interview Confidence'],
+  },
+  {
+    title: 'Real-Time Project Training',
+    icon: <Briefcase size={24} />,
+    gradient: 'from-violet-500 via-purple-500 to-fuchsia-500',
+    desc: 'Project-based learning with mock interviews, practical exercises, and career guidance.',
+    items: ['Live Projects', 'Practical Exercises', 'Mock Interviews', 'Career Guidance'],
   },
 ]
 
-export default function TrainingServicesPage() {
+export default function ITServicesPage() {
   return (
     <main className="min-h-screen bg-background text-foreground">
       {/* Top bar */}
@@ -85,21 +76,21 @@ export default function TrainingServicesPage() {
           >
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-primary/30 bg-primary/10 text-primary text-xs font-semibold tracking-wider uppercase mb-6">
               <span className="w-1.5 h-1.5 rounded-full bg-primary animate-pulse" />
-              Training Services
+              IT Services
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground text-balance mb-4">
-              Explore Our{' '}
-              <span className="brand-gradient-text">Training Tracks</span>
+              Enterprise &amp;{' '}
+              <span className="brand-gradient-text">Corporate Solutions</span>
             </h1>
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto text-pretty">
-              Industry-aligned programs with hands-on projects, expert mentorship, and dedicated
-              placement support. Choose a track to get started.
+              Tailored technology consulting, corporate training, and placement-focused programs to help
+              teams and organizations stay future-ready.
             </p>
           </motion.div>
 
           {/* Four cards */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
-            {trainingCards.map((card, i) => (
+            {itCards.map((card, i) => (
               <motion.div
                 key={card.title}
                 variants={fadeUp}
@@ -130,10 +121,10 @@ export default function TrainingServicesPage() {
                 </ul>
 
                 <Link
-                  href={card.href}
-                  className="mt-auto inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-sm font-semibold brand-gradient text-background glow-green transition-all duration-200 hover:scale-[1.02]"
+                  href="/contact"
+                  className="mt-auto inline-flex items-center justify-center gap-2 w-full py-2.5 rounded-full text-sm font-semibold brand-gradient text-background glow-green transition-all duration-150 hover:scale-[1.02]"
                 >
-                  {card.cta} <ArrowRight size={15} />
+                  Enquire Now <ArrowRight size={15} />
                 </Link>
               </motion.div>
             ))}
@@ -151,24 +142,24 @@ export default function TrainingServicesPage() {
               <div className="inline-flex items-center gap-3 mb-3">
                 <span className="h-px w-8 bg-primary" />
                 <span className="text-primary text-xs font-semibold tracking-widest uppercase flex items-center gap-1.5">
-                  <PlayCircle size={14} /> Referral Video
+                  <PlayCircle size={14} /> Overview Video
                 </span>
                 <span className="h-px w-8 bg-primary" />
               </div>
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-balance">
-                See How <span className="brand-gradient-text">XpertsEdge</span> Works
+                How <span className="brand-gradient-text">XpertsEdge</span> Partners With Teams
               </h2>
               <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
-                Watch how our students learn, build real projects, and land their dream jobs.
+                See how we deliver corporate training, consulting, and placement support for organizations.
               </p>
             </div>
 
             <div className="relative rounded-2xl overflow-hidden brand-border bg-card aspect-video shadow-xl shadow-black/30">
-              {/* Replace the src below with your actual referral video (YouTube embed or hosted MP4). */}
+              {/* Replace the src below with your actual IT services video (YouTube embed or hosted MP4). */}
               <iframe
                 className="absolute inset-0 w-full h-full"
                 src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="XpertsEdge Technologies referral video"
+                title="XpertsEdge Technologies IT services video"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
                 loading="lazy"

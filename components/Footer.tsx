@@ -79,12 +79,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <button onClick={() => scrollTo('#home')} className="flex items-center gap-3 mb-4 group" aria-label="Go to top">
-              <Image src="/logo.png" alt="XpertsEdge Technologies" width={36} height={36} className="w-9 h-9 object-contain group-hover:scale-110 transition-transform" />
+              <Image src="/logo.png" alt="XpertsEdge Technologies" width={52} height={52} className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
               <div className="flex flex-col leading-tight">
-                <span className="font-bold text-base">
+                <span className="font-bold text-lg">
                   <span className="text-foreground">Xperts</span>
                   <span className="text-primary">Edge</span>
                 </span>
+                <span className="text-[11px] text-muted-foreground tracking-wide">Technologies</span>
               </div>
             </button>
             <p className="text-sm text-muted-foreground leading-relaxed mb-5">

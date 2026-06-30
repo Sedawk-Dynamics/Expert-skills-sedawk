@@ -126,10 +126,10 @@ export default function WhyChooseUs() {
               animate={inView ? 'visible' : 'hidden'}
               transition={{ duration: 0.55, delay: 0.1 + i * 0.07 }}
               whileHover={{ y: -4 }}
-              className="group relative surface-card rounded-2xl p-6 flex gap-4 hover:border-primary/30 transition-all duration-300"
+              className="group relative surface-card rounded-2xl p-6 flex gap-4 hover:border-primary/30 transition-all duration-150"
             >
               {/* Hover glow */}
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none"
                 style={{ background: 'radial-gradient(ellipse at top left, rgba(34,197,94,0.06) 0%, transparent 70%)' }}
                 aria-hidden="true"
               />

@@ -192,7 +192,7 @@ export default function Contact() {
                 </p>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="flex flex-col gap-5" noValidate>
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
                 <h3 className="text-lg font-semibold text-foreground mb-1">Send us a message</h3>
 
                 <div className="grid sm:grid-cols-2 gap-4">
