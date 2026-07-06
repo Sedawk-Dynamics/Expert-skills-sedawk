@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
+import HeroLines from '@/components/HeroLines'
 
 const stats = [
   { end: 500, suffix: '+', label: 'Students Trained' },
@@ -96,6 +97,9 @@ export default function Hero() {
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </div>
+
+      {/* Animated flowing lines */}
+      <HeroLines />
 
       {/* Animated glow orbs */}
       <motion.div
