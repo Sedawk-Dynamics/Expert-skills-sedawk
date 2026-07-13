@@ -1,10 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { ArrowRight, ChevronDown } from 'lucide-react'
-import HeroLines from '@/components/HeroLines'
 
 const stats = [
   { end: 500, suffix: '+', label: 'Students Trained' },
@@ -85,21 +83,20 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden"
     >
-      {/* Background image */}
+      {/* Background video */}
       <div className="absolute inset-0 z-0">
-        <Image
-          src="/hero-bg.png"
-          alt=""
-          fill
-          className="object-cover opacity-30"
-          priority
+        <video
+          className="absolute inset-0 w-full h-full object-cover"
+          src="/hero-bg-video.mp4"
+          poster="/hero-bg.png"
+          autoPlay
+          muted
+          loop
+          playsInline
           aria-hidden="true"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-background/60 via-background/40 to-background" />
       </div>
-
-      {/* Animated flowing lines */}
-      <HeroLines />
 
       {/* Animated glow orbs */}
       <motion.div
