@@ -23,6 +23,7 @@ const courses = [
     highlights: ['Live Projects', 'Frontend + Backend', 'Interview Prep', 'Placement Support'],
     desc: 'A complete Java full stack roadmap covering frontend, backend, REST APIs, database integration, and deployment basics.',
     tag: 'Popular',
+    curriculum: '/curriculum/java-full-stack.pdf',
   },
   {
     category: 'Web Development',
@@ -36,6 +37,7 @@ const courses = [
     highlights: ['Angular UI', 'REST APIs', 'MongoDB Practice', 'Mock Interviews'],
     desc: 'Build scalable full stack applications using Angular and Node.js with modern API workflows and deployment basics.',
     tag: 'Core',
+    curriculum: '/curriculum/mean-stack.pdf',
   },
   {
     category: 'Web Development',
@@ -49,6 +51,7 @@ const courses = [
     highlights: ['React Projects', 'API Integration', 'Portfolio Build', 'Resume Guidance'],
     desc: 'Learn a modern JavaScript full stack workflow with React, Node.js, API integration, authentication, and capstone builds.',
     tag: 'Popular',
+    curriculum: '/curriculum/mern-stack.pdf',
   },
   {
     category: 'Web Development',
@@ -62,6 +65,7 @@ const courses = [
     highlights: ['App Router', 'SSR & SSG', 'API Routes', 'Vercel Deployment'],
     desc: 'Build production-grade full stack apps with Next.js — App Router, server components, rendering strategies, API routes, and deployment.',
     tag: 'Advanced',
+    curriculum: '/curriculum/nextjs.pdf',
   },
   {
     category: 'Testing',
@@ -75,6 +79,7 @@ const courses = [
     highlights: ['STLC Basics', 'Test Cases', 'Bug Reporting', 'Agile Exposure'],
     desc: 'Master manual testing essentials, defect lifecycle, requirement analysis, and real-time testing document preparation.',
     tag: 'Core',
+    curriculum: '/curriculum/manual-testing.pdf',
   },
   {
     category: 'Testing',
@@ -88,6 +93,7 @@ const courses = [
     highlights: ['Framework Design', 'Cucumber BDD', 'POM Pattern', 'Jenkins Basics'],
     desc: 'A practical automation course focused on Java, Selenium WebDriver, reusable framework design, and reporting.',
     tag: 'Popular',
+    curriculum: '/curriculum/java-selenium-automation.pdf',
   },
   {
     category: 'Testing',
@@ -101,6 +107,7 @@ const courses = [
     highlights: ['Locator Practice', 'API + UI', 'Cross Browser', 'Real Projects'],
     desc: 'Train on modern browser automation using Playwright, TypeScript, assertions, fixtures, and CI-ready patterns.',
     tag: 'Advanced',
+    curriculum: '/curriculum/playwright-automation.pdf',
   },
   {
     category: 'Testing',
@@ -114,6 +121,7 @@ const courses = [
     highlights: ['REST Concepts', 'Collections', 'Automation Basics', 'Validation Practice'],
     desc: 'Strengthen API validation skills with Postman, status checks, request chaining, and Java-based automation basics.',
     tag: 'Core',
+    curriculum: '/curriculum/api-testing.pdf',
   },
   {
     category: 'Cloud & DevOps',
@@ -127,6 +135,7 @@ const courses = [
     highlights: ['Live Training', 'Real AWS Projects', 'Mentorship', 'Placement Support'],
     desc: 'A cloud-oriented track covering core AWS services, architecture basics, deployment concepts, and practical labs.',
     tag: 'Advanced',
+    curriculum: '/curriculum/aws.pdf',
   },
   {
     category: 'Cloud & DevOps',
@@ -140,6 +149,7 @@ const courses = [
     highlights: ['Azure Labs', 'Admin Modules', 'Cloud Projects', 'Certification Path'],
     desc: 'Gain hands-on cloud fundamentals with Azure services, identity, networking, storage, and virtual infrastructure.',
     tag: 'Advanced',
+    curriculum: '/curriculum/microsoft-azure.pdf',
   },
   {
     category: 'Cloud & DevOps',
@@ -153,6 +163,7 @@ const courses = [
     highlights: ['Git Workflow', 'Docker Practice', 'CI/CD Pipelines', 'Linux Basics'],
     desc: 'Learn deployment automation, source control workflow, containers, and CI/CD concepts for practical DevOps readiness.',
     tag: 'Advanced',
+    curriculum: '/curriculum/devops.pdf',
   },
   {
     category: 'Other',
@@ -166,10 +177,11 @@ const courses = [
     highlights: ['Problem Solving', 'Coding Logic', 'Patterns Practice', 'Interview Prep'],
     desc: 'Sharpen coding logic, problem-solving patterns, and interview confidence with essential DSA coverage and practice rounds.',
     tag: 'Core',
+    curriculum: '/curriculum/dsa.pdf',
   },
 ]
 
-type Course = typeof courses[0]
+type Course = typeof courses[number] & { curriculum?: string }
 
 // ─── Category metadata (Level 1 cards) ───────────────────────────────────────
 const categoryMeta = [
@@ -330,14 +342,16 @@ function CourseModal({ course, onClose }: { course: Course; onClose: () => void 
           >
             Register for Demo
           </motion.a>
-          <a
-            href={`/curriculum/${course.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}.pdf`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex-1 py-3 rounded-xl font-semibold border border-primary/40 text-primary text-sm text-center hover:bg-primary/10 transition-all"
-          >
-            View Curriculum
-          </a>
+          {course.curriculum && (
+            <a
+              href={course.curriculum}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 py-3 rounded-xl font-semibold border border-primary/40 text-primary text-sm text-center hover:bg-primary/10 transition-all"
+            >
+              View Curriculum
+            </a>
+          )}
         </div>
       </motion.div>
     </motion.div>
