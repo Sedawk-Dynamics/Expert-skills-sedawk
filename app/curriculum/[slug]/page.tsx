@@ -5,8 +5,6 @@ import {
   Clock, MonitorSmartphone, Download, CheckCircle2, GraduationCap,
   ArrowRight, ArrowLeft, BookOpen, Layers, Target,
 } from 'lucide-react'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import { curricula, curriculumSlugs } from '@/lib/curriculum'
 
 const siteUrl = 'https://www.xpertsedgetech.com'
@@ -68,7 +66,6 @@ export default async function CurriculumPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(courseJsonLd) }}
       />
-      <Navbar />
 
       {/* Hero */}
       <section className="relative overflow-hidden border-b border-border pt-28 pb-16">
@@ -250,8 +247,6 @@ export default async function CurriculumPage({
           </div>
         </section>
       </div>
-
-      <Footer />
     </main>
   )
 }

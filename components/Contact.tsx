@@ -3,6 +3,7 @@
 import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react'
+import { submitLead } from '@/lib/web3forms'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -54,15 +55,12 @@ export default function Contact() {
     setSubmitting(true)
     setError(null)
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formState),
+      await submitLead({
+        name: formState.name,
+        email: formState.email,
+        phone: formState.phone,
+        message: formState.message,
       })
-      const data = await res.json().catch(() => ({}))
-      if (!res.ok || !data.ok) {
-        throw new Error(data.error || 'Something went wrong. Please try again.')
-      }
       setSubmitted(true)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')

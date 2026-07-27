@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ArrowLeft, CheckCircle, Send, User, Mail, Phone, Building2, BookOpen } from 'lucide-react'
+import { CheckCircle, Send, User, Mail, Phone, Building2, BookOpen } from 'lucide-react'
+import { submitLead } from '@/lib/web3forms'
 
 const courses = [
   'Java Full Stack',
@@ -39,6 +39,7 @@ export default function DemoPage() {
   })
   const [submitted, setSubmitted] = useState(false)
   const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -46,46 +47,36 @@ export default function DemoPage() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    setTimeout(() => {
-      setSubmitting(false)
+    setError(null)
+
+    const course = form.course === 'Others' ? form.otherCourse.trim() : form.course
+    const message =
+      form.message.trim() ||
+      `Free demo registration${course ? ` for ${course}` : ''}.`
+
+    try {
+      await submitLead({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        company: form.company,
+        course,
+        message,
+        subject: `Free demo registration${course ? ` — ${course}` : ''}`,
+      })
       setSubmitted(true)
-    }, 1200)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
     <main className="min-h-screen bg-background text-foreground">
-      {/* Nav bar back */}
-      <div className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-md border-b border-border">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group">
-            <Image src="/logo.png" alt="XpertsEdge Technologies" width={36} height={36} className="w-8 h-8 object-contain group-hover:scale-110 transition-transform" />
-            <div className="leading-tight">
-              <span className="font-bold text-sm">
-                <span className="text-foreground">Xperts</span>
-                <span className="text-primary">Edge</span>
-              </span>
-            </div>
-          </Link>
-          <div className="flex items-center gap-4">
-            <Link
-              href="/#courses"
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              <ArrowLeft size={16} /> Back to Courses
-            </Link>
-            <Link
-              href="/"
-              className="hidden sm:block text-sm text-muted-foreground hover:text-primary transition-colors"
-            >
-              Home
-            </Link>
-          </div>
-        </div>
-      </div>
-
       <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           {/* Header */}
@@ -281,6 +272,10 @@ export default function DemoPage() {
                     className="w-full bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all resize-none"
                   />
                 </div>
+
+                {error && (
+                  <p className="text-sm text-destructive" role="alert">{error}</p>
+                )}
 
                 <motion.button
                   type="submit"

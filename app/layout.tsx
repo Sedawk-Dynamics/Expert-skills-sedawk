@@ -1,6 +1,8 @@
 import type { Metadata } from 'next'
 import { Inter, Space_Mono } from 'next/font/google'
 import './globals.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
 
 const inter = Inter({
@@ -142,7 +144,9 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
+        <Navbar />
         {children}
+        <Footer />
         <WhatsAppButton />
       </body>
     </html>

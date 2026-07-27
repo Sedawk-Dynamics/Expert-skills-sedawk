@@ -3,15 +3,22 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Wrench, GraduationCap } from 'lucide-react'
 
 export default function Navbar() {
+  const pathname = usePathname()
+  const router = useRouter()
+  const isHome = pathname === '/'
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [servicesOpen, setServicesOpen] = useState(false)
   const servicesRef = useRef<HTMLDivElement>(null)
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  // Header is solid on every page except the home hero (transparent until scrolled).
+  const solid = scrolled || !isHome
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40)
@@ -33,8 +40,13 @@ export default function Navbar() {
     setMenuOpen(false)
     setServicesOpen(false)
     if (href.startsWith('#')) {
-      const el = document.querySelector(href)
-      if (el) el.scrollIntoView({ behavior: 'smooth' })
+      if (isHome) {
+        const el = document.querySelector(href)
+        if (el) el.scrollIntoView({ behavior: 'smooth' })
+      } else {
+        // Anchor lives on the home page — navigate there with the hash.
+        router.push(href === '#home' ? '/' : `/${href}`)
+      }
     }
   }
 
@@ -48,12 +60,9 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: 'easeOut' }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-150 ${
-          scrolled
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-150 ${
+          solid
             ? 'bg-background/90 backdrop-blur-md border-b border-border shadow-lg shadow-black/40'
             : 'bg-transparent'
         }`}
@@ -235,7 +244,7 @@ export default function Navbar() {
             {menuOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile Menu */}
       <AnimatePresence>
