@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { curriculumSlugs } from '@/lib/curriculum'
 
 const siteUrl = 'https://www.xpertsedgetech.com'
 
@@ -16,10 +17,19 @@ const routes: Array<{ path: string; priority: number; changeFrequency: 'daily' |
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
 
-  return routes.map((route) => ({
+  const staticRoutes = routes.map((route) => ({
     url: `${siteUrl}${route.path}`,
     lastModified,
     changeFrequency: route.changeFrequency,
     priority: route.priority,
   }))
+
+  const curriculumRoutes = curriculumSlugs.map((slug) => ({
+    url: `${siteUrl}/curriculum/${slug}`,
+    lastModified,
+    changeFrequency: 'monthly' as const,
+    priority: 0.75,
+  }))
+
+  return [...staticRoutes, ...curriculumRoutes]
 }
