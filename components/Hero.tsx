@@ -120,14 +120,24 @@ export default function Hero() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.35 }}
-          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground text-balance leading-tight"
+          className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight text-foreground leading-tight"
         >
-          Building
-          {' '}
-          <span className="brand-gradient-text">{displayText}</span>
-          <span className="inline-block w-0.5 h-10 md:h-14 bg-primary align-middle ml-1 animate-pulse" aria-hidden="true" />
-          <br className="hidden sm:block" />
-          <span className="text-foreground"> Beyond Boundaries</span>
+          <span>
+            Building{' '}
+            {/* Fixed-width slot sized to the longest word so the line never reflows */}
+            <span className="relative inline-flex align-baseline">
+              <span className="invisible" aria-hidden="true">Excellence</span>
+              <span className="absolute inset-0 flex items-baseline justify-start brand-gradient-text">
+                {displayText}
+                <span
+                  className="inline-block w-0.5 h-8 sm:h-10 md:h-14 bg-primary self-center ml-1 animate-pulse"
+                  aria-hidden="true"
+                />
+              </span>
+            </span>
+          </span>
+          <br />
+          <span className="text-foreground">Beyond Boundaries</span>
         </motion.h1>
 
         {/* Sub */}
