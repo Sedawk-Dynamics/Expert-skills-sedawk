@@ -142,10 +142,15 @@ export default function Footer() {
               <a href="mailto:info@xpertsedgetech.com" className="flex items-center gap-2 text-xs text-muted-foreground hover:text-primary transition-colors">
                 <Mail size={13} /> info@xpertsedgetech.com
               </a>
-              <span className="flex items-start gap-2 text-xs text-muted-foreground">
-                <MapPin size={13} className="mt-0.5 flex-shrink-0" />
+              <a
+                href="https://maps.app.goo.gl/Gkky8cGk5wVXTFpp9?g_st=aw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-start gap-2 text-xs text-muted-foreground hover:text-primary transition-colors"
+              >
+                <MapPin size={13} className="mt-0.5 shrink-0" />
                 No. 2110A, 13th Main Road,<br />Anna Nagar, Chennai - 600 040
-              </span>
+              </a>
             </div>
 
             {/* Social */}
