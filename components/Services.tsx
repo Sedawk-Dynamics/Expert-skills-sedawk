@@ -507,10 +507,14 @@ function CourseCard({
 }
 
 // ─── Main Section ─────────────────────────────────────────────────────────────
-export default function Services() {
+export default function Services({ initialCategory }: { initialCategory?: string }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
-  const [activeCategory, setActiveCategory] = useState<string | null>(null)
+  const validInitial =
+    initialCategory && categoryMeta.some((c) => c.key === initialCategory)
+      ? initialCategory
+      : null
+  const [activeCategory, setActiveCategory] = useState<string | null>(validInitial)
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
 
   const activeCourses = activeCategory

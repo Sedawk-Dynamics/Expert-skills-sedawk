@@ -6,12 +6,12 @@ import ClientsTicker from '@/components/ClientsTicker'
 import WhyChooseUs from '@/components/WhyChooseUs'
 import Reviews from '@/components/Reviews'
 import Certifications from '@/components/Certifications'
-import RegistrationPopup from '@/components/RegistrationPopup'
+import HashScroll from '@/components/HashScroll'
 
 export default function Page() {
   return (
     <main className="min-h-screen bg-background text-foreground overflow-x-hidden">
-      <RegistrationPopup />
+      <HashScroll />
       <Hero />
       <About />
       <Services />

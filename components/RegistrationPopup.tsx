@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, CheckCircle, GraduationCap } from 'lucide-react'
+import { submitLead } from '@/lib/web3forms'
 
 const courses = [
   'Java Full Stack',
@@ -17,13 +18,15 @@ const courses = [
   'Microsoft Azure',
   'DevOps',
   'DSA',
+  'Other',
 ]
 
 export default function RegistrationPopup() {
   const [open, setOpen] = useState(false)
   const [submitting, setSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-  const [form, setForm] = useState({ name: '', email: '', phone: '', course: '' })
+  const [error, setError] = useState<string | null>(null)
+  const [form, setForm] = useState({ name: '', email: '', phone: '', course: '', otherCourse: '' })
 
   // Show once per browser session, shortly after the page loads.
   useEffect(() => {
@@ -31,6 +34,17 @@ export default function RegistrationPopup() {
     if (sessionStorage.getItem('reg_popup_seen')) return
     const t = setTimeout(() => setOpen(true), 11500)
     return () => clearTimeout(t)
+  }, [])
+
+  // Allow any element to open the form on demand (e.g. curriculum "Download PDF").
+  useEffect(() => {
+    const openNow = () => {
+      setSubmitted(false)
+      setError(null)
+      setOpen(true)
+    }
+    window.addEventListener('open-registration', openNow)
+    return () => window.removeEventListener('open-registration', openNow)
   }, [])
 
   const close = () => {
@@ -52,14 +66,28 @@ export default function RegistrationPopup() {
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setSubmitting(true)
-    // TODO: wire this up to a real backend / form service.
-    setTimeout(() => {
-      setSubmitting(false)
+    setError(null)
+
+    const course = form.course === 'Other' ? form.otherCourse.trim() : form.course
+
+    try {
+      await submitLead({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        course,
+        message: `Free demo registration${course ? ` for ${course}` : ''}.`,
+        subject: `Demo registration${course ? ` — ${course}` : ''}`,
+      })
       setSubmitted(true)
-    }, 1200)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -149,6 +177,19 @@ export default function RegistrationPopup() {
                       <option key={c} value={c}>{c}</option>
                     ))}
                   </select>
+
+                  {form.course === 'Other' && (
+                    <input
+                      name="otherCourse" type="text" required
+                      value={form.otherCourse} onChange={handleChange}
+                      placeholder="Which course are you interested in?"
+                      className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+                    />
+                  )}
+
+                  {error && (
+                    <p className="text-sm text-destructive" role="alert">{error}</p>
+                  )}
 
                   <motion.button
                     type="submit"

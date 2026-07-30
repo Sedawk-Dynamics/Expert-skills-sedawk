@@ -5,6 +5,7 @@ import {
   Clock, MonitorSmartphone, Download, CheckCircle2, GraduationCap,
   ArrowRight, ArrowLeft, BookOpen, Layers, Target,
 } from 'lucide-react'
+import RegisterTrigger from '@/components/RegisterTrigger'
 import { curricula, curriculumSlugs } from '@/lib/curriculum'
 
 const siteUrl = 'https://www.xpertsedgetech.com'
@@ -112,14 +113,12 @@ export default async function CurriculumPage({
             >
               Register for Demo <ArrowRight size={15} />
             </Link>
-            <a
-              href={c.pdf}
-              target="_blank"
-              rel="noopener noreferrer"
+            <RegisterTrigger
+              ariaLabel="Get the curriculum PDF"
               className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold border border-primary/40 text-primary text-sm hover:bg-primary/10 transition-all"
             >
               <Download size={15} /> Download PDF
-            </a>
+            </RegisterTrigger>
           </div>
         </div>
       </section>

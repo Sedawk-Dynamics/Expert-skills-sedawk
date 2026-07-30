@@ -6,6 +6,7 @@ const siteUrl = 'https://www.xpertsedgetech.com'
 const routes: Array<{ path: string; priority: number; changeFrequency: 'daily' | 'weekly' | 'monthly' | 'yearly' }> = [
   { path: '', priority: 1.0, changeFrequency: 'weekly' },
   { path: '/training-services', priority: 0.9, changeFrequency: 'weekly' },
+  { path: '/courses', priority: 0.9, changeFrequency: 'weekly' },
   { path: '/it-services', priority: 0.9, changeFrequency: 'monthly' },
   { path: '/certifications', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/demo', priority: 0.8, changeFrequency: 'monthly' },

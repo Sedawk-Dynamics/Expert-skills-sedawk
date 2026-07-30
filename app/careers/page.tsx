@@ -1,7 +1,12 @@
 'use client'
 
+import { useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { MapPin, Clock, Briefcase, GraduationCap, ArrowRight } from 'lucide-react'
+import {
+  MapPin, Clock, Briefcase, GraduationCap, ArrowRight,
+  Send, CheckCircle, User, Mail, Phone, Award, Link2,
+} from 'lucide-react'
+import { submitLead } from '@/lib/web3forms'
 
 const openings = [
   {
@@ -51,7 +56,72 @@ const fadeUp = {
   visible: { opacity: 1, y: 0 },
 }
 
+const positions = [...openings.map((o) => o.title), 'General Application']
+
 export default function CareersPage() {
+  const applyRef = useRef<HTMLDivElement>(null)
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    qualification: '',
+    location: '',
+    position: '',
+    resumeLink: '',
+  })
+  const [submitting, setSubmitting] = useState(false)
+  const [submitted, setSubmitted] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    let { value } = e.target
+    if (e.target.name === 'name') value = value.replace(/[^a-zA-Z\s.]/g, '')
+    setForm((prev) => ({ ...prev, [e.target.name]: value }))
+  }
+
+  const applyFor = (title: string) => {
+    setForm((prev) => ({ ...prev, position: title }))
+    applyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError(null)
+    setSubmitting(true)
+
+    const position = form.position || 'General Application'
+    const message = [
+      `Position: ${position}`,
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Phone: ${form.phone}`,
+      `Qualification: ${form.qualification}`,
+      `Current Location: ${form.location}`,
+      `Resume Link: ${form.resumeLink.trim()}`,
+    ].join('\n')
+
+    try {
+      await submitLead({
+        name: form.name,
+        email: form.email,
+        phone: form.phone,
+        course: position,
+        message,
+        subject: `Job Application — ${position} — ${form.name}`,
+      })
+      setSubmitted(true)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  const inputClass =
+    'w-full bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all'
+
   return (
     <main className="min-h-screen bg-background text-foreground">
       <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8">
@@ -139,42 +209,192 @@ export default function CareersPage() {
                         ))}
                       </div>
                     </div>
-                    <motion.a
-                      href="mailto:hr@xpertsedgetech.com"
+                    <motion.button
+                      type="button"
+                      onClick={() => applyFor(job.title)}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
-                      className="flex-shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold brand-gradient text-background glow-green"
+                      className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold brand-gradient text-background glow-green"
                     >
                       Apply Now <ArrowRight size={14} />
-                    </motion.a>
+                    </motion.button>
                   </div>
                 </motion.div>
               ))}
             </div>
           </motion.div>
 
-          {/* General application */}
+          {/* Application form */}
           <motion.div
+            ref={applyRef}
+            id="apply"
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.6, delay: 0.5 }}
-            className="mt-10 surface-card rounded-2xl p-8 text-center border border-primary/15"
+            transition={{ duration: 0.6, delay: 0.4 }}
+            className="mt-14 scroll-mt-24 surface-card rounded-2xl p-6 md:p-9 border border-primary/15"
           >
-            <h3 className="text-xl font-bold text-foreground mb-2">
-              Don&apos;t see a role that fits?
-            </h3>
-            <p className="text-muted-foreground text-sm mb-5">
-              We&apos;re always on the lookout for talented individuals. Send us your profile and we&apos;ll reach out when the right opportunity comes up.
-            </p>
-            <motion.a
-              href="mailto:hr@xpertsedgetech.com"
-              whileHover={{ scale: 1.04 }}
-              whileTap={{ scale: 0.97 }}
-              className="inline-flex items-center gap-2 px-7 py-3 rounded-full font-semibold border border-primary/40 text-primary hover:bg-primary/10 transition-all text-sm"
-            >
-              Send General Application
-            </motion.a>
+            <div className="text-center mb-7">
+              <h2 className="text-2xl font-bold text-foreground">
+                Apply <span className="brand-gradient-text">Now</span>
+              </h2>
+              <p className="text-muted-foreground text-sm mt-2 max-w-lg mx-auto">
+                Fill in your details and attach your resume. Don&apos;t see a matching role? Choose
+                &ldquo;General Application&rdquo; and we&apos;ll reach out when the right opportunity opens.
+              </p>
+            </div>
+
+            {submitted ? (
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                className="flex flex-col items-center justify-center gap-4 py-12 text-center"
+              >
+                <div className="w-16 h-16 rounded-full brand-gradient flex items-center justify-center glow-green">
+                  <CheckCircle size={32} className="text-background" />
+                </div>
+                <h3 className="text-2xl font-bold text-foreground">Application Received!</h3>
+                <p className="text-muted-foreground max-w-sm leading-relaxed">
+                  Thank you for applying. Our HR team will review your profile and get back to you soon.
+                </p>
+              </motion.div>
+            ) : (
+              <form onSubmit={handleSubmit} className="flex flex-col gap-5">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="name" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                      Full Name <span className="text-primary">*</span>
+                    </label>
+                    <div className="relative">
+                      <User size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                      <input
+                        id="name" name="name" type="text" required
+                        pattern="[A-Za-z\s.]+" title="Name can contain letters and spaces only"
+                        value={form.name} onChange={handleChange}
+                        placeholder="Your full name"
+                        className={`${inputClass} pl-9`}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="phone" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                      Phone <span className="text-primary">*</span>
+                    </label>
+                    <div className="relative">
+                      <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                      <input
+                        id="phone" name="phone" type="tel" required
+                        value={form.phone} onChange={handleChange}
+                        placeholder="+91 XXXXX XXXXX"
+                        className={`${inputClass} pl-9`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="email" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                    Email <span className="text-primary">*</span>
+                  </label>
+                  <div className="relative">
+                    <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      id="email" name="email" type="email" required
+                      value={form.email} onChange={handleChange}
+                      placeholder="you@email.com"
+                      className={`${inputClass} pl-9`}
+                    />
+                  </div>
+                </div>
+
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="qualification" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                      Qualification <span className="text-primary">*</span>
+                    </label>
+                    <div className="relative">
+                      <Award size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                      <input
+                        id="qualification" name="qualification" type="text" required
+                        value={form.qualification} onChange={handleChange}
+                        placeholder="e.g. B.E. CSE, MCA"
+                        className={`${inputClass} pl-9`}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col gap-1.5">
+                    <label htmlFor="location" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                      Current Location <span className="text-primary">*</span>
+                    </label>
+                    <div className="relative">
+                      <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                      <input
+                        id="location" name="location" type="text" required
+                        value={form.location} onChange={handleChange}
+                        placeholder="City, State"
+                        className={`${inputClass} pl-9`}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="position" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                    Position <span className="text-primary">*</span>
+                  </label>
+                  <select
+                    id="position" name="position" required
+                    value={form.position} onChange={handleChange}
+                    className={`${inputClass} appearance-none`}
+                  >
+                    <option value="" disabled>Select a position</option>
+                    {positions.map((p) => (
+                      <option key={p} value={p}>{p}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="flex flex-col gap-1.5">
+                  <label htmlFor="resumeLink" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
+                    Resume Link <span className="text-muted-foreground/70 normal-case">(Drive / LinkedIn)</span> <span className="text-primary">*</span>
+                  </label>
+                  <div className="relative">
+                    <Link2 size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <input
+                      id="resumeLink" name="resumeLink" type="url" required
+                      value={form.resumeLink} onChange={handleChange}
+                      placeholder="https://drive.google.com/..."
+                      className={`${inputClass} pl-9`}
+                    />
+                  </div>
+                  <p className="text-[11px] text-muted-foreground/80 mt-0.5">
+                    Note: Please make sure your Google Drive link is set to
+                    &ldquo;Anyone with the link can view&rdquo; so our team can open it.
+                  </p>
+                </div>
+
+                {error && (
+                  <p className="text-sm text-destructive" role="alert">{error}</p>
+                )}
+
+                <motion.button
+                  type="submit"
+                  disabled={submitting}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center justify-center gap-2 w-full py-3.5 rounded-xl font-semibold brand-gradient text-background glow-green transition-all disabled:opacity-60 disabled:cursor-not-allowed"
+                >
+                  {submitting ? (
+                    <span className="flex items-center gap-2">
+                      <span className="w-4 h-4 border-2 border-background/30 border-t-background rounded-full animate-spin" />
+                      Submitting...
+                    </span>
+                  ) : (
+                    <>Submit Application <Send size={16} /></>
+                  )}
+                </motion.button>
+              </form>
+            )}
           </motion.div>
         </div>
       </div>

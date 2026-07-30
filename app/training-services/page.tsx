@@ -19,7 +19,7 @@ const trainingCards = [
     gradient: 'from-emerald-500 via-green-500 to-teal-500',
     desc: 'Frontend to full stack tracks — Java Full Stack, MEAN, MERN, and Next.js with job-ready projects.',
     items: ['Java Full Stack', 'MEAN Stack', 'MERN Stack', 'Next.js'],
-    href: '/#courses',
+    href: '/courses?category=Web+Development',
     cta: 'Explore Courses',
   },
   {
@@ -28,7 +28,7 @@ const trainingCards = [
     gradient: 'from-blue-500 via-indigo-500 to-violet-500',
     desc: 'Manual and automation testing paths for freshers and experienced career switchers.',
     items: ['Manual Testing', 'Selenium', 'Playwright', 'API Testing'],
-    href: '/#courses',
+    href: '/courses?category=Testing',
     cta: 'Explore Courses',
   },
   {
@@ -37,7 +37,7 @@ const trainingCards = [
     gradient: 'from-fuchsia-500 via-pink-500 to-orange-500',
     desc: 'Cloud, DevOps, and foundational programs like DSA for modern top IT skill requirements.',
     items: ['AWS Track', 'Microsoft Azure', 'DevOps', 'DSA'],
-    href: '/#courses',
+    href: '/courses',
     cta: 'Explore Courses',
   },
   {

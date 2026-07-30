@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
 import WhatsAppButton from '@/components/WhatsAppButton'
+import RegistrationPopup from '@/components/RegistrationPopup'
 
 const inter = Inter({
   subsets: ['latin'],
@@ -147,6 +148,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <RegistrationPopup />
         <WhatsAppButton />
       </body>
     </html>

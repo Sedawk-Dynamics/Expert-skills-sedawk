@@ -44,7 +44,12 @@ export default function DemoPage() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    let { value } = e.target
+    // Full name: allow letters and spaces only — strip digits / special characters.
+    if (e.target.name === 'name') {
+      value = value.replace(/[^a-zA-Z\s]/g, '')
+    }
+    setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -176,6 +181,8 @@ export default function DemoPage() {
                       <User size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                       <input
                         id="name" name="name" type="text" required
+                        pattern="[A-Za-z\s]+"
+                        title="Name can contain letters and spaces only"
                         value={form.name} onChange={handleChange}
                         placeholder="Your full name"
                         className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
