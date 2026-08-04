@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CheckCircle, Send, User, Mail, Phone, Building2, BookOpen } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
+import { filterName, filterPhone, phoneAttrs } from '@/lib/formFilters'
 
 const courses = [
   'Java Full Stack',
@@ -45,10 +46,8 @@ export default function DemoPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     let { value } = e.target
-    // Full name: allow letters and spaces only — strip digits / special characters.
-    if (e.target.name === 'name') {
-      value = value.replace(/[^a-zA-Z\s]/g, '')
-    }
+    if (e.target.name === 'name') value = filterName(value)
+    if (e.target.name === 'phone') value = filterPhone(value)
     setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
@@ -196,7 +195,7 @@ export default function DemoPage() {
                     <div className="relative">
                       <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                       <input
-                        id="phone" name="phone" type="tel" required
+                        id="phone" name="phone" type="tel" required {...phoneAttrs}
                         value={form.phone} onChange={handleChange}
                         placeholder="+91 XXXXX XXXXX"
                         className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"

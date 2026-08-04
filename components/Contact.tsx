@@ -4,6 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
+import { filterName, filterPhone, phoneAttrs } from '@/lib/formFilters'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -47,7 +48,10 @@ export default function Contact() {
   const [error, setError] = useState<string | null>(null)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    let { value } = e.target
+    if (e.target.name === 'name') value = filterName(value)
+    if (e.target.name === 'phone') value = filterPhone(value)
+    setFormState((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -203,6 +207,8 @@ export default function Contact() {
                       name="name"
                       type="text"
                       required
+                      pattern="[A-Za-z\s.]+"
+                      title="Name can contain letters and spaces only"
                       value={formState.name}
                       onChange={handleChange}
                       placeholder="Your name"
@@ -217,6 +223,7 @@ export default function Contact() {
                       id="phone"
                       name="phone"
                       type="tel"
+                      {...phoneAttrs}
                       value={formState.phone}
                       onChange={handleChange}
                       placeholder="+91 XXXXX XXXXX"

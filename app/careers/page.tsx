@@ -7,6 +7,7 @@ import {
   Send, CheckCircle, User, Mail, Phone, Award, Link2,
 } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
+import { filterName, filterPhone, phoneAttrs, hasLetterAttrs } from '@/lib/formFilters'
 
 const openings = [
   {
@@ -77,7 +78,8 @@ export default function CareersPage() {
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     let { value } = e.target
-    if (e.target.name === 'name') value = value.replace(/[^a-zA-Z\s.]/g, '')
+    if (e.target.name === 'name') value = filterName(value)
+    if (e.target.name === 'phone') value = filterPhone(value)
     setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
@@ -283,7 +285,7 @@ export default function CareersPage() {
                     <div className="relative">
                       <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                       <input
-                        id="phone" name="phone" type="tel" required
+                        id="phone" name="phone" type="tel" required {...phoneAttrs}
                         value={form.phone} onChange={handleChange}
                         placeholder="+91 XXXXX XXXXX"
                         className={`${inputClass} pl-9`}
@@ -315,7 +317,7 @@ export default function CareersPage() {
                     <div className="relative">
                       <Award size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                       <input
-                        id="qualification" name="qualification" type="text" required
+                        id="qualification" name="qualification" type="text" required {...hasLetterAttrs}
                         value={form.qualification} onChange={handleChange}
                         placeholder="e.g. B.E. CSE, MCA"
                         className={`${inputClass} pl-9`}
@@ -329,7 +331,7 @@ export default function CareersPage() {
                     <div className="relative">
                       <MapPin size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                       <input
-                        id="location" name="location" type="text" required
+                        id="location" name="location" type="text" required {...hasLetterAttrs}
                         value={form.location} onChange={handleChange}
                         placeholder="City, State"
                         className={`${inputClass} pl-9`}

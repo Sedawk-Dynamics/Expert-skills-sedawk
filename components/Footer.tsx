@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Mail, Phone, MapPin } from 'lucide-react'
 
@@ -64,21 +65,29 @@ const footerLinks = [
   {
     heading: 'Programs',
     links: [
-      { label: 'Java Full Stack', href: '#courses', isAnchor: true },
-      { label: 'MERN / MEAN Stack', href: '#courses', isAnchor: true },
-      { label: 'Manual Testing', href: '#courses', isAnchor: true },
-      { label: 'Selenium Automation', href: '#courses', isAnchor: true },
-      { label: 'Playwright Testing', href: '#courses', isAnchor: true },
-      { label: 'AWS / Azure / DevOps', href: '#courses', isAnchor: true },
+      { label: 'Java Full Stack', href: '/courses?category=Web+Development', isAnchor: false },
+      { label: 'MERN / MEAN Stack', href: '/courses?category=Web+Development', isAnchor: false },
+      { label: 'Manual Testing', href: '/courses?category=Testing', isAnchor: false },
+      { label: 'Selenium Automation', href: '/courses?category=Testing', isAnchor: false },
+      { label: 'Playwright Testing', href: '/courses?category=Testing', isAnchor: false },
+      { label: 'AWS / Azure / DevOps', href: '/courses', isAnchor: false },
     ],
   },
 ]
 
-const scrollTo = (href: string) => {
-  document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
-}
-
 export default function Footer() {
+  const pathname = usePathname()
+  const router = useRouter()
+
+  // Section anchors live on the home page — scroll if we're there, else navigate.
+  const goToAnchor = (href: string) => {
+    if (pathname === '/') {
+      document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      router.push(href === '#home' ? '/' : `/${href}`)
+    }
+  }
+
   return (
     <footer className="bg-card border-t border-border">
       {/* CTA Banner */}
@@ -101,17 +110,6 @@ export default function Footer() {
                 Join hundreds of professionals who&apos;ve transformed their careers with XpertsEdge.
               </p>
             </div>
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <Link
-                href="/demo"
-                className="flex-shrink-0 px-8 py-3 rounded-full font-semibold brand-gradient text-background glow-green text-sm inline-block"
-              >
-                Register for Demo
-              </Link>
-            </motion.div>
           </motion.div>
         </div>
       </div>
@@ -121,7 +119,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <button onClick={() => scrollTo('#home')} className="flex items-center gap-3 mb-4 group" aria-label="Go to top">
+            <button onClick={() => goToAnchor('#home')} className="flex items-center gap-3 mb-4 group" aria-label="Go to top">
               <Image src="/logo.png" alt="XpertsEdge Technologies" width={52} height={52} className="w-12 h-12 object-contain group-hover:scale-110 transition-transform" />
               <div className="flex flex-col leading-tight">
                 <span className="font-bold text-lg">
@@ -182,7 +180,7 @@ export default function Footer() {
                   <li key={link.label}>
                     {link.isAnchor ? (
                       <button
-                        onClick={() => scrollTo(link.href)}
+                        onClick={() => goToAnchor(link.href)}
                         className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
                       >
                         {link.label}

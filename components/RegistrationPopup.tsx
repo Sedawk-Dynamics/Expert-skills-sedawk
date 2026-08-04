@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, CheckCircle, GraduationCap } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
+import { filterName, filterPhone, phoneAttrs } from '@/lib/formFilters'
 
 const courses = [
   'Java Full Stack',
@@ -63,7 +64,10 @@ export default function RegistrationPopup() {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    let { value } = e.target
+    if (e.target.name === 'name') value = filterName(value)
+    if (e.target.name === 'phone') value = filterPhone(value)
+    setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -151,6 +155,7 @@ export default function RegistrationPopup() {
                 <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                   <input
                     name="name" type="text" required
+                    pattern="[A-Za-z\s.]+" title="Name can contain letters and spaces only"
                     value={form.name} onChange={handleChange}
                     placeholder="Full name"
                     className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
@@ -162,7 +167,7 @@ export default function RegistrationPopup() {
                     className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
                   />
                   <input
-                    name="phone" type="tel" required
+                    name="phone" type="tel" required {...phoneAttrs}
                     value={form.phone} onChange={handleChange}
                     placeholder="Phone number"
                     className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
