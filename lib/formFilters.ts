@@ -3,15 +3,16 @@
 /** Names: letters, spaces and dots only. */
 export const filterName = (v: string) => v.replace(/[^a-zA-Z\s.]/g, '')
 
-/** Phone: digits plus the usual phone punctuation (+, -, space, parentheses). */
-export const filterPhone = (v: string) => v.replace(/[^\d+\-\s()]/g, '')
+/** Phone: exactly 10 digits — strip everything non-numeric and cap at 10. */
+export const filterPhone = (v: string) => v.replace(/\D/g, '').slice(0, 10)
 
-// Reusable HTML validation attributes.
+// Reusable HTML validation attributes for a 10-digit phone number.
 export const phoneAttrs = {
-  inputMode: 'tel' as const,
-  pattern: '[0-9+\\-\\s()]{7,15}',
-  title: 'Enter a valid phone number (7–15 digits)',
-  maxLength: 18,
+  inputMode: 'numeric' as const,
+  pattern: '[0-9]{10}',
+  title: 'Enter a 10-digit phone number',
+  maxLength: 10,
+  minLength: 10,
 }
 
 /** Must contain at least one letter — blocks all-numeric junk. */

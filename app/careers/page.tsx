@@ -287,7 +287,7 @@ export default function CareersPage() {
                       <input
                         id="phone" name="phone" type="tel" required {...phoneAttrs}
                         value={form.phone} onChange={handleChange}
-                        placeholder="+91 XXXXX XXXXX"
+                        placeholder="10-digit mobile number"
                         className={`${inputClass} pl-9`}
                       />
                     </div>

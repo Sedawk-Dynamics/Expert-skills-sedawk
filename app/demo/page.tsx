@@ -180,7 +180,7 @@ export default function DemoPage() {
                       <User size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
                       <input
                         id="name" name="name" type="text" required
-                        pattern="[A-Za-z\s]+"
+                        pattern="[A-Za-z\s.]+"
                         title="Name can contain letters and spaces only"
                         value={form.name} onChange={handleChange}
                         placeholder="Your full name"
@@ -197,7 +197,7 @@ export default function DemoPage() {
                       <input
                         id="phone" name="phone" type="tel" required {...phoneAttrs}
                         value={form.phone} onChange={handleChange}
-                        placeholder="+91 XXXXX XXXXX"
+                        placeholder="10-digit mobile number"
                         className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
                       />
                     </div>
