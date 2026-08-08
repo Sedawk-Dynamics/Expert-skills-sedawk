@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
-import { filterName, filterPhone, phoneAttrs } from '@/lib/formFilters'
+import { filterName, filterPhone, filterEmail, phoneAttrs } from '@/lib/formFilters'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -51,6 +51,7 @@ export default function Contact() {
     let { value } = e.target
     if (e.target.name === 'name') value = filterName(value)
     if (e.target.name === 'phone') value = filterPhone(value)
+    if (e.target.name === 'email') value = filterEmail(value)
     setFormState((prev) => ({ ...prev, [e.target.name]: value }))
   }
 

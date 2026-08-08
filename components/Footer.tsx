@@ -65,12 +65,12 @@ const footerLinks = [
   {
     heading: 'Programs',
     links: [
-      { label: 'Java Full Stack', href: '/courses?category=Web+Development', isAnchor: false },
-      { label: 'MERN / MEAN Stack', href: '/courses?category=Web+Development', isAnchor: false },
-      { label: 'Manual Testing', href: '/courses?category=Testing', isAnchor: false },
-      { label: 'Selenium Automation', href: '/courses?category=Testing', isAnchor: false },
-      { label: 'Playwright Testing', href: '/courses?category=Testing', isAnchor: false },
-      { label: 'AWS / Azure / DevOps', href: '/courses', isAnchor: false },
+      { label: 'Java Full Stack', href: '/curriculum/java-full-stack', isAnchor: false },
+      { label: 'MERN Stack', href: '/curriculum/mern-stack', isAnchor: false },
+      { label: 'Manual Testing', href: '/curriculum/manual-testing', isAnchor: false },
+      { label: 'Selenium Automation', href: '/curriculum/java-selenium-automation', isAnchor: false },
+      { label: 'Playwright Testing', href: '/curriculum/playwright-automation', isAnchor: false },
+      { label: 'AWS', href: '/curriculum/aws', isAnchor: false },
     ],
   },
 ]

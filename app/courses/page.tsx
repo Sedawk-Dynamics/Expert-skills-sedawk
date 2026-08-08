@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import Services from '@/components/Services'
+import { Suspense } from 'react'
+import CoursesView from './CoursesView'
 
 export const metadata: Metadata = {
   title: 'Courses',
@@ -14,15 +15,12 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function CoursesPage({
-  searchParams,
-}: {
-  searchParams: Promise<{ category?: string }>
-}) {
-  const { category } = await searchParams
+export default function CoursesPage() {
   return (
     <main className="min-h-screen bg-background text-foreground pt-16">
-      <Services initialCategory={category} />
+      <Suspense fallback={null}>
+        <CoursesView />
+      </Suspense>
     </main>
   )
 }

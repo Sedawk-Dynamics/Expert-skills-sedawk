@@ -7,7 +7,7 @@ import {
   Send, CheckCircle, User, Mail, Phone, Award, Link2,
 } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
-import { filterName, filterPhone, phoneAttrs, hasLetterAttrs } from '@/lib/formFilters'
+import { filterName, filterPhone, filterEmail, phoneAttrs, hasLetterAttrs, isResumeLinkValid } from '@/lib/formFilters'
 
 const openings = [
   {
@@ -80,6 +80,7 @@ export default function CareersPage() {
     let { value } = e.target
     if (e.target.name === 'name') value = filterName(value)
     if (e.target.name === 'phone') value = filterPhone(value)
+    if (e.target.name === 'email') value = filterEmail(value)
     setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
@@ -91,6 +92,12 @@ export default function CareersPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError(null)
+
+    if (!isResumeLinkValid(form.resumeLink)) {
+      setError('Please enter a valid Google Drive or LinkedIn link (starting with https://).')
+      return
+    }
+
     setSubmitting(true)
 
     const position = form.position || 'General Application'

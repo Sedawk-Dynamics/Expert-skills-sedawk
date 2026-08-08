@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CheckCircle, Send, User, Mail, Phone, Building2, BookOpen } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
-import { filterName, filterPhone, phoneAttrs } from '@/lib/formFilters'
+import { filterName, filterPhone, filterEmail, phoneAttrs } from '@/lib/formFilters'
 
 const courses = [
   'Java Full Stack',
@@ -48,6 +48,7 @@ export default function DemoPage() {
     let { value } = e.target
     if (e.target.name === 'name') value = filterName(value)
     if (e.target.name === 'phone') value = filterPhone(value)
+    if (e.target.name === 'email') value = filterEmail(value)
     setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 

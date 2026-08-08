@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, CheckCircle, GraduationCap } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
-import { filterName, filterPhone, phoneAttrs } from '@/lib/formFilters'
+import { filterName, filterPhone, filterEmail, phoneAttrs } from '@/lib/formFilters'
 
 const courses = [
   'Java Full Stack',
@@ -67,6 +67,7 @@ export default function RegistrationPopup() {
     let { value } = e.target
     if (e.target.name === 'name') value = filterName(value)
     if (e.target.name === 'phone') value = filterPhone(value)
+    if (e.target.name === 'email') value = filterEmail(value)
     setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
