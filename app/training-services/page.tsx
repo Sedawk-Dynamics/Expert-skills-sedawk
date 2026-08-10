@@ -121,41 +121,7 @@ export default function TrainingServicesPage() {
           </div>
 
           {/* Referral video */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="max-w-4xl mx-auto"
-          >
-            <div className="text-center mb-8">
-              <div className="inline-flex items-center gap-3 mb-3">
-                <span className="h-px w-8 bg-primary" />
-                <span className="text-primary text-xs font-semibold tracking-widest uppercase flex items-center gap-1.5">
-                  <PlayCircle size={14} /> Referral Video
-                </span>
-                <span className="h-px w-8 bg-primary" />
-              </div>
-              <h2 className="text-2xl sm:text-3xl font-bold text-foreground text-balance">
-                See How <span className="brand-gradient-text">XpertsEdge</span> Works
-              </h2>
-              <p className="mt-3 text-sm text-muted-foreground max-w-xl mx-auto">
-                Watch how our students learn, build real projects, and land their dream jobs.
-              </p>
-            </div>
-
-            <div className="relative rounded-2xl overflow-hidden brand-border bg-card aspect-video shadow-xl shadow-black/30">
-              {/* Replace the src below with your actual referral video (YouTube embed or hosted MP4). */}
-              <iframe
-                className="absolute inset-0 w-full h-full"
-                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                title="XpertsEdge Technologies referral video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-                loading="lazy"
-              />
-            </div>
-          </motion.div>
+        
         </div>
       </div>
     </main>
