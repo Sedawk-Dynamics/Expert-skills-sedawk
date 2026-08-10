@@ -41,6 +41,8 @@ export default function Navbar() {
     setServicesOpen(false)
     if (href.startsWith('#')) {
       if (isHome) {
+        // Clicking Home / logo resets the courses section to its category cards.
+        if (href === '#home') window.dispatchEvent(new Event('reset-courses'))
         const el = document.querySelector(href)
         if (el) el.scrollIntoView({ behavior: 'smooth' })
       } else {

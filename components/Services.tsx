@@ -517,6 +517,16 @@ export default function Services({ initialCategory }: { initialCategory?: string
   const [activeCategory, setActiveCategory] = useState<string | null>(validInitial)
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null)
 
+  // Reset back to the category cards when Home / logo is clicked.
+  useEffect(() => {
+    const reset = () => {
+      setActiveCategory(null)
+      setSelectedCourse(null)
+    }
+    window.addEventListener('reset-courses', reset)
+    return () => window.removeEventListener('reset-courses', reset)
+  }, [])
+
   const activeCourses = activeCategory
     ? courses.filter((c) => c.category === activeCategory)
     : []
