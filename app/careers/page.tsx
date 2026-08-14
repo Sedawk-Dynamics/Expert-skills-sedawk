@@ -218,15 +218,14 @@ export default function CareersPage() {
                         ))}
                       </div>
                     </div>
-                    <motion.button
-                      type="button"
-                      onClick={() => applyFor(job.title)}
+                    <motion.a
+                      href={`mailto:admin@xpertsedgetech.com?subject=Job Application — ${encodeURIComponent(job.title)}&body=Hi,%0A%0AI am interested in the ${encodeURIComponent(job.title)} position.%0APlease find my updated resume attached.%0A%0ARegards`}
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.97 }}
                       className="shrink-0 inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold brand-gradient text-background glow-green"
                     >
                       Apply Now <ArrowRight size={14} />
-                    </motion.button>
+                    </motion.a>
                   </div>
                 </motion.div>
               ))}
