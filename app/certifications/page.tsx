@@ -19,6 +19,7 @@ type Cert = {
 type Category = {
   id: string
   title: string
+  explore: string
   icon: string
   logo: string
   gradient: string
@@ -30,6 +31,7 @@ const courseData: Category[] = [
   {
     id: 'istqb',
     title: 'ISTQB Certification',
+    explore: 'Explore ISTQB',
     icon: '🧪',
     logo: 'ISTQB',
     gradient: 'from-blue-500 via-indigo-500 to-violet-500',
@@ -100,6 +102,7 @@ const courseData: Category[] = [
   {
     id: 'aws',
     title: 'AWS Certification',
+    explore: 'Explore AWS',
     icon: '☁️',
     logo: 'AWS',
     gradient: 'from-amber-500 via-orange-500 to-yellow-500',
@@ -180,6 +183,7 @@ const courseData: Category[] = [
   {
     id: 'devops',
     title: 'DevOps & Kubernetes',
+    explore: 'Explore DevOps',
     icon: '⚙️',
     logo: 'K8s',
     gradient: 'from-cyan-500 via-sky-500 to-blue-500',
@@ -230,6 +234,7 @@ const courseData: Category[] = [
   {
     id: 'data',
     title: 'Data Certifications',
+    explore: 'Explore Data',
     icon: '📊',
     logo: 'DATA',
     gradient: 'from-emerald-500 via-green-500 to-teal-500',
@@ -290,6 +295,7 @@ const courseData: Category[] = [
   {
     id: 'agile',
     title: 'Agile & Project Management',
+    explore: 'Explore Agile',
     icon: '📋',
     logo: 'AGILE',
     gradient: 'from-fuchsia-500 via-pink-500 to-rose-500',
@@ -511,7 +517,7 @@ export default function CertificationsPage() {
 
                     <div className="flex items-center justify-end">
                       <span className="flex items-center gap-1 text-sm font-bold text-primary">
-                        View Cards <ArrowRight size={15} />
+                        {cat.explore} <ArrowRight size={15} />
                       </span>
                     </div>
                   </motion.button>

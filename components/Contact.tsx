@@ -4,7 +4,7 @@ import { useRef, useState } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
-import { filterName, filterPhone, filterEmail, phoneAttrs } from '@/lib/formFilters'
+import { filterName, filterPhone, filterEmail, phoneAttrs, formatPhoneWithCode } from '@/lib/formFilters'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -63,7 +63,7 @@ export default function Contact() {
       await submitLead({
         name: formState.name,
         email: formState.email,
-        phone: formState.phone,
+        phone: formatPhoneWithCode(formState.phone),
         message: formState.message,
       })
       setSubmitted(true)
@@ -220,16 +220,21 @@ export default function Contact() {
                     <label htmlFor="phone" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
                       Phone
                     </label>
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      {...phoneAttrs}
-                      value={formState.phone}
-                      onChange={handleChange}
-                      placeholder="10-digit mobile number"
-                      className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-200"
-                    />
+                    <div className="flex">
+                      <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-border bg-primary/10 text-primary text-sm font-semibold select-none flex-shrink-0">
+                        +91
+                      </span>
+                      <input
+                        id="phone"
+                        name="phone"
+                        type="tel"
+                        {...phoneAttrs}
+                        value={formState.phone}
+                        onChange={handleChange}
+                        placeholder="10-digit mobile number"
+                        className="flex-1 bg-background border border-border rounded-r-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all duration-200"
+                      />
+                    </div>
                   </div>
                 </div>
 

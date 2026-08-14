@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion } from 'framer-motion'
 import { CheckCircle, Send, User, Mail, Phone, Building2, BookOpen } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
-import { filterName, filterPhone, filterEmail, phoneAttrs } from '@/lib/formFilters'
+import { filterName, filterPhone, filterEmail, phoneAttrs, formatPhoneWithCode } from '@/lib/formFilters'
 
 const courses = [
   'Java Full Stack',
@@ -66,7 +66,7 @@ export default function DemoPage() {
       await submitLead({
         name: form.name,
         email: form.email,
-        phone: form.phone,
+        phone: formatPhoneWithCode(form.phone),
         company: form.company,
         course,
         message,
@@ -193,13 +193,15 @@ export default function DemoPage() {
                     <label htmlFor="phone" className="text-xs text-muted-foreground font-medium uppercase tracking-wide">
                       Phone <span className="text-primary">*</span>
                     </label>
-                    <div className="relative">
-                      <Phone size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
+                    <div className="relative flex">
+                      <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-border bg-primary/10 text-primary text-sm font-semibold select-none flex-shrink-0">
+                        +91
+                      </span>
                       <input
                         id="phone" name="phone" type="tel" required {...phoneAttrs}
                         value={form.phone} onChange={handleChange}
                         placeholder="10-digit mobile number"
-                        className="w-full bg-background border border-border rounded-xl pl-9 pr-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+                        className="flex-1 bg-background border border-border rounded-r-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
                       />
                     </div>
                   </div>

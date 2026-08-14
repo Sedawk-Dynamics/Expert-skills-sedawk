@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send, CheckCircle, GraduationCap } from 'lucide-react'
 import { submitLead } from '@/lib/web3forms'
-import { filterName, filterPhone, filterEmail, phoneAttrs } from '@/lib/formFilters'
+import { filterName, filterPhone, filterEmail, filterOtherCourse, phoneAttrs, formatPhoneWithCode } from '@/lib/formFilters'
 
 const courses = [
   'Java Full Stack',
@@ -68,6 +68,7 @@ export default function RegistrationPopup() {
     if (e.target.name === 'name') value = filterName(value)
     if (e.target.name === 'phone') value = filterPhone(value)
     if (e.target.name === 'email') value = filterEmail(value)
+    if (e.target.name === 'otherCourse') value = filterOtherCourse(value)
     setForm((prev) => ({ ...prev, [e.target.name]: value }))
   }
 
@@ -82,7 +83,7 @@ export default function RegistrationPopup() {
       await submitLead({
         name: form.name,
         email: form.email,
-        phone: form.phone,
+        phone: formatPhoneWithCode(form.phone),
         course,
         message: `Free demo registration${course ? ` for ${course}` : ''}.`,
         subject: `Demo registration${course ? ` — ${course}` : ''}`,
@@ -167,12 +168,17 @@ export default function RegistrationPopup() {
                     placeholder="Email address"
                     className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
                   />
-                  <input
-                    name="phone" type="tel" required {...phoneAttrs}
-                    value={form.phone} onChange={handleChange}
-                    placeholder="10-digit mobile number"
-                    className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
-                  />
+                  <div className="relative flex">
+                    <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-border bg-primary/10 text-primary text-sm font-semibold select-none flex-shrink-0">
+                      +91
+                    </span>
+                    <input
+                      name="phone" type="tel" required {...phoneAttrs}
+                      value={form.phone} onChange={handleChange}
+                      placeholder="10-digit mobile number"
+                      className="flex-1 bg-background border border-border rounded-r-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
+                    />
+                  </div>
                   <select
                     name="course" required
                     value={form.course} onChange={handleChange}
@@ -185,8 +191,13 @@ export default function RegistrationPopup() {
                   </select>
 
                   {form.course === 'Other' && (
-                    <input
-                      name="otherCourse" type="text" required
+                        <input
+                      name="otherCourse"
+                      type="text"
+                      required
+                      inputMode="text"
+                      pattern="[^0-9]+"
+                      title="Please enter text only — numbers are not allowed"
                       value={form.otherCourse} onChange={handleChange}
                       placeholder="Which course are you interested in?"
                       className="bg-background border border-border rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/30 transition-all"
